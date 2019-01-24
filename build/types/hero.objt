@@ -1,0 +1,14 @@
+[Id=0]
+scale=5.0
+angle=0.0
+damage=5
+damageType=NORMAL
+attackSpeed=0.25
+hitpoints=10000
+decay=1
+missileSpeed=15.0
+missileCount=3
+missile=hero_missile.png
+texture=hero.png
+player=PLAYER
+[End]
