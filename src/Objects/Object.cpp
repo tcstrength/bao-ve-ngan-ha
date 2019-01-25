@@ -123,7 +123,17 @@ void Object::beingHit(DamageType dmgType, int dmg)
             break;
     }
 
-    FloatingText* ft = new FloatingText(m_context);
+    FloatingText* ft = nullptr;
+
+    if (m_attr.player == Player::PLAYER)
+    {
+        ft = new FloatingText(m_context, sf::Color::Green);
+    }
+    else
+    {
+        ft = new FloatingText(m_context, sf::Color::Red);
+    }
+
     ft->setPosition(getPosition());
     ft->setText(std::to_string(dmg));
     m_floatTexts.push_back(ft);

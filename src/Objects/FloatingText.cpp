@@ -1,12 +1,12 @@
 #include "FloatingText.h"
 
-FloatingText::FloatingText(Context& context)
+FloatingText::FloatingText(Context& context, sf::Color color)
 :   GameObject(context)
 ,   m_text("Default", m_context.font)
 ,   m_vel(sf::Vector2f(randf(), randf()))
 {
     m_text.setCharacterSize(20);
-    m_text.setFillColor(sf::Color(128 + rand() % 128, 255, 128 + rand() % 128));
+    m_text.setFillColor(color);
     m_text.setStyle(sf::Text::Bold);
 }
 

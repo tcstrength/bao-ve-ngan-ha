@@ -18,6 +18,14 @@ void Group::tick()
         {
             remove(it.first);
         }
+        else if (player()->getAttr().player != it.second->getAttr().player
+                 && player()->getAttr().hitpoints != 0
+                 && player()->overlap(it.second)
+                 && it.second->getAttr().hitpoints != 0)
+        {
+            player()->beingHit(DamageType::NORMAL, 50);
+            it.second->beingHit(DamageType::NORMAL, 20);
+        }
         else
         {
             it.second->tick();

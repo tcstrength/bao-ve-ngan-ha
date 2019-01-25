@@ -8,7 +8,7 @@
 class FloatingText : public GameObject
 {
 public:
-    FloatingText(Context& context);
+    FloatingText(Context& context, sf::Color color);
 
     void tick();
 

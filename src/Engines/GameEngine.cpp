@@ -100,6 +100,11 @@ void GameEngine::update()
     m_group.tick();
     m_group.player()->setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_context.window)));
 
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+    {
+        static_cast<Object*>(m_group.player())->attack(m_group);
+    }
+
     for (auto obj : m_group.getObjects())
     {
         if (obj.second->getAttr().player != Player::PLAYER)
@@ -130,13 +135,14 @@ void GameEngine::handleEvents()
                     case sf::Keyboard::Space:
                         static_cast<Object*>(m_group.player())->getAttr().hitpoints += 100;
                         static_cast<Object*>(m_group.player())->getAttr().damage += 100;
+                        static_cast<Object*>(m_group.player())->getAttr().attackSpeed -= 0.1f;
                         break;
                 }
                 break;
 
-            case sf::Event::MouseButtonPressed:
-                static_cast<Object*>(m_group.player())->attack(m_group);
-                break;
+//            case sf::Event::MouseButtonPressed:
+//                static_cast<Object*>(m_group.player())->attack(m_group);
+//                break;
 
             default:
                 break;
