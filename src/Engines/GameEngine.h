@@ -5,8 +5,9 @@
 #include "../Context.h"
 #include "../Managers/TextureManager.h"
 #include "../Managers/ObjectTypeManager.h"
-#include "../Objects/Group.h"
-#include "../Objects/Object.h"
+#include "../Environment/Environment.h"
+#include "../Objects/GameObject.h"
+#include "../Objects/Player.h"
 
 class GameEngine
 {
@@ -21,14 +22,14 @@ public:
 private:
     void handleEvents();
 
-    void update();
-
     void render();
+
+    void tick();
 
     Context m_context;
     const Config& m_config;
-    Group m_group;
     sf::Text m_fpsText;
+    Environment m_env;
 };
 
 #endif // GAMEENGINE_H

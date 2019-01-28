@@ -1,37 +1,25 @@
 #ifndef MISSILE_H
 #define MISSILE_H
 
-#include "../Context.h"
 #include "GameObject.h"
-#include "Group.h"
+#include "../Utils/Misc.h"
 
 class Missile : public GameObject
 {
 public:
-    Missile(Context& context, Group& group, GameObject& owner);
+    Missile(Environment& env,const Attributes& attr);
 
     void tick();
 
-    void render();
+private:
+    void move(int dist);
 
-    bool isDeath();
-
-    sf::Vector2f getPosition() const;
-
-    void setPosition(const sf::Vector2f & position);
-
-    sf::Vector2f getSize() const;
+    bool check();
 
 private:
-    void update();
 
-    Group&       m_group;
-    sf::Sprite   m_sprite;
-    float        m_speed;
-    int          m_damage;
-    DamageType   m_type;
-    int          m_direction;
-    GameObject&  m_owner;
+    int  m_distance;
+    int  m_maxDistance;
 };
 
 #endif // MISSILE_H

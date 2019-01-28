@@ -3,6 +3,7 @@
 GameEngine::GameEngine(const Config& config)
 :   m_context(config)
 ,   m_config(config)
+,   m_env(m_context)
 {
     m_fpsText.setFont(m_context.font);
     m_fpsText.setFillColor(sf::Color::Yellow);
@@ -12,7 +13,6 @@ GameEngine::GameEngine(const Config& config)
 
 GameEngine::~GameEngine()
 {
-    m_group.destroyObjects();
 }
 
 void GameEngine::init()
@@ -22,53 +22,9 @@ void GameEngine::init()
     mng->load("hero.objt");
     mng->load("greencraft.objt");
     mng->load("greencraft_boss.objt");
-    auto hero = mng->get(0);
-    auto greencraft = mng->get(1);
-    auto greencraftBoss = mng->get(2);
 
-    m_group.add(new Object(m_context, hero));
-
-
-    int numGreencraft = 5;
-    int greenCraftHeight = 100;
-    for (int i = 0; i < numGreencraft; ++i)
-    {
-        auto spacing = static_cast<float>(m_config.width) / (numGreencraft + 1);
-        m_group.add(new Object(m_context, greencraft));
-        m_group.last()->setPosition(sf::Vector2f(spacing * (i + 1), greenCraftHeight));
-    }
-
-    numGreencraft = 10;
-    greenCraftHeight = 200;
-    for (int i = 0; i < numGreencraft; ++i)
-    {
-        auto spacing = static_cast<float>(m_config.width) / (numGreencraft + 1);
-        m_group.add(new Object(m_context, greencraft));
-        m_group.last()->setPosition(sf::Vector2f(spacing * (i + 1), greenCraftHeight));
-    }
-
-    numGreencraft = 5;
-    greenCraftHeight = 300;
-    for (int i = 0; i < numGreencraft; ++i)
-    {
-        auto spacing = static_cast<float>(m_config.width) / (numGreencraft + 1);
-        m_group.add(new Object(m_context, greencraft));
-        m_group.last()->setPosition(sf::Vector2f(spacing * (i + 1), greenCraftHeight));
-    }
-
-    numGreencraft = 10;
-    greenCraftHeight = 400;
-    for (int i = 0; i < numGreencraft; ++i)
-    {
-        auto spacing = static_cast<float>(m_config.width) / (numGreencraft + 1);
-        m_group.add(new Object(m_context, greencraft));
-        m_group.last()->setPosition(sf::Vector2f(spacing * (i + 1), greenCraftHeight));
-    }
-
-    m_group.add(new Object(m_context, greencraftBoss));
-    m_group.last()->setPosition(sf::Vector2f(m_config.width / 2, m_config.height / 2));
-
-    mng->show();
+    auto player = new Player(m_env);
+    new GameObject(m_env, Team::COMPUTER, 10.f);
 }
 
 int GameEngine::run()
@@ -79,7 +35,7 @@ int GameEngine::run()
     {
         counter.restart();
         handleEvents();
-        update();
+        tick();
         render();
         m_fpsText.setString(std::to_string(1000000 / counter.getElapsedTime().asMicroseconds()));
     }
@@ -90,28 +46,18 @@ int GameEngine::run()
 void GameEngine::render()
 {
     m_context.window.clear();
-    m_group.render();
+
+    m_env.render();
+
     m_context.window.draw(m_fpsText);
     m_context.window.display();
 }
 
-void GameEngine::update()
+void GameEngine::tick()
 {
-    m_group.tick();
-    m_group.player()->setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_context.window)));
-
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-    {
-        static_cast<Object*>(m_group.player())->attack(m_group);
-    }
-
-    for (auto obj : m_group.getObjects())
-    {
-        if (obj.second->getAttr().player != Player::PLAYER)
-            static_cast<Object*>(obj.second)->attack(m_group);
-    }
-//    static_cast<Object*>(m_group.player())->center();
+    m_env.tick();
 }
+
 
 void GameEngine::handleEvents()
 {
@@ -126,23 +72,12 @@ void GameEngine::handleEvents()
                 break;
 
             case sf::Event::KeyPressed:
-                switch (e.key.code)
+                if (e.key.code == sf::Keyboard::Escape)
                 {
-                    case sf::Keyboard::Escape:
-                        m_context.window.close();
-                        break;
-
-                    case sf::Keyboard::Space:
-                        static_cast<Object*>(m_group.player())->getAttr().hitpoints += 100;
-                        static_cast<Object*>(m_group.player())->getAttr().damage += 100;
-                        static_cast<Object*>(m_group.player())->getAttr().attackSpeed -= 0.1f;
-                        break;
+                    m_context.window.close();
                 }
-                break;
 
-//            case sf::Event::MouseButtonPressed:
-//                static_cast<Object*>(m_group.player())->attack(m_group);
-//                break;
+                break;
 
             default:
                 break;

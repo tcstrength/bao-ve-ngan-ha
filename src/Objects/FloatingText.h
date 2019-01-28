@@ -5,14 +5,14 @@
 #include "../Utils/Misc.h"
 #include "GameObject.h"
 
-class FloatingText : public GameObject
+class FloatingText
 {
 public:
-    FloatingText(Context& context, sf::Color color);
+    FloatingText(sf::Color color);
 
     void tick();
 
-    void render();
+    void render(sf::RenderWindow& window);
 
     void setPosition(const sf::Vector2f & position);
 

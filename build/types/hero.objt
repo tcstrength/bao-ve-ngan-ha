@@ -1,7 +1,7 @@
 [Id=0]
 scale=5.0
 angle=0.0
-damage=5
+damage=15
 damageType=NORMAL
 attackSpeed=0.25
 hitpoints=500

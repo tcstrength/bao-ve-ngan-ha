@@ -1,6 +1,8 @@
 #include "Context.h"
 
-Context::Context(const Config& config)
+Context::Context(const Config& cfg)
+:   config(cfg)
+,   camera(cfg)
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 4;

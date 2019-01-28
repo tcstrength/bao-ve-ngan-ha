@@ -1,89 +1,71 @@
 #include "Missile.h"
 
-Missile::Missile(Context & context, Group& group, GameObject& owner)
-:   GameObject(context)
-,   m_group(group)
-,   m_speed(owner.getAttr().missileSpeed)
-,   m_damage(owner.getAttr().damage)
-,   m_type(owner.getAttr().dmgType)
-,   m_direction(-1)
-,   m_owner(owner)
+Missile::Missile(Environment& env, const Attributes& attr)
+:   GameObject (env, attr.team)
+,   m_distance(0)
+,   m_maxDistance(attr.damage * attr.missileSpeed * 20)
 {
-    m_sprite.setTexture(TextureManager::instance()->get(owner.getAttr().missile.c_str()));
-
-    if (m_speed > 50)
-    {
-        m_speed = 50;
-    }
-
-    if (owner.getAttr().player == Player::COMPUTER)
-    {
-        LOG_DEBUG("WTF");
-        m_direction = 1;
-    }
+    m_attr = attr;
+    m_attr.scale = 1.f;
+    m_attr.maxHitpoints = 0;
+    m_attr.showHP = false;
+    m_sprite.setTexture(TextureManager::instance()->get(m_attr.missile.c_str()));
 }
 
 void Missile::tick()
 {
-    float step = m_speed;
-
-    if (m_speed > 25)
+    if (m_distance > m_maxDistance)
     {
-        step = m_speed / std::sqrt(m_speed);
+        del();
+        return;
     }
 
-    for (float i = step; i <= m_speed; i += step)
-    {
-        auto pos = getPosition();
-        pos.y += m_direction * step;
-        setPosition(pos);
+    static int step = 5;
 
-        for (auto it : m_group.getObjects())
+    int carry = m_attr.missileSpeed % step;
+    int count = m_attr.missileSpeed / step;
+
+    for (int i = 0; i < count; ++i)
+    {
+        move(step);
+        if (check())
         {
-            if (it.second->getAttr().player != m_owner.getAttr().player &&
-                it.second->getAttr().hitpoints > 0 &&
-                it.second->overlap(this))
-            {
-                it.second->beingHit(m_type, m_damage);
-                setPosition(sf::Vector2f(-100, -100));
-                break;
-            }
+            del();
+            return;
         }
     }
+
+    move(carry);
+    if (check())
+    {
+        del();
+    }
 }
 
-void Missile::render()
+void Missile::move(int dist)
 {
-    m_context.window.draw(m_sprite);
+    if (dist > 0)
+    {
+        m_distance += dist;
+        sf::Vector2f nextPos = getPosition();
+        float rad = (m_attr.angle - 90) * static_cast<float>(PI / 180);
+        nextPos.x = nextPos.x + dist * std::cos(rad);
+        nextPos.y = nextPos.y + dist * std::sin(rad);
+        setPosition(nextPos);
+    }
 
-//    sf::CircleShape circle(20);
-//    circle.setPosition(m_position);
-//    m_context.window.draw(circle);
+    LOG_DEBUG(this << ", " << m_distance);
 }
 
-sf::Vector2f Missile::getPosition() const
+bool Missile::check()
 {
-    return m_position;
-}
+    GameObject* obj = static_cast<GameObject*>(m_env.overlap(this));
 
-void Missile::setPosition(const sf::Vector2f & position)
-{
-    m_position = position;
-    update();
-}
+    if (obj && obj->getAttr().team != this->getAttr().team)
+    {
+        obj->beHit(m_attr.dmgType, m_attr.damage);
+        return true;
+    }
 
-sf::Vector2f Missile::getSize() const
-{
-    auto rect = m_sprite.getGlobalBounds();
-    return sf::Vector2f(rect.width, rect.height);
-}
-
-void Missile::update()
-{
-    m_sprite.setPosition(getCenterPoint());
-}
-
-bool Missile::isDeath()
-{
-    return m_position.y <= 0;
+    return false;
 }

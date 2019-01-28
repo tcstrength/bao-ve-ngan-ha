@@ -1,41 +1,58 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "../Context.h"
+#include "../Environment/Environment.h"
 #include "Attributes.h"
 
-class GameObject
+class GameObject : public EnvironmentObject
 {
 public:
-    GameObject(Context& context);
+    GameObject(Environment& environment, Team team, float scale = 1.f, sf::Vector2f pos = sf::Vector2f(100.f, 100.f));
 
-    virtual ~GameObject() {  }
+    virtual void tick();
 
-    virtual void render() = 0;
+    virtual void render(sf::RenderWindow& window);
 
-    virtual void tick() = 0;
+    virtual void update();
 
-    virtual sf::Vector2f getSize() const = 0;
+    virtual bool isDead();
 
-    virtual Attributes& getAttr();
+    virtual void attack();
 
-    virtual void beingHit(DamageType dmgType, int dmg);
+            void del();
 
-    virtual void setPosition(const sf::Vector2f& position);
+            void beHit(DamageType type, int dmg);
 
-    const   sf::Vector2f& getPosition() const;
+    const   Attributes& getAttr() const;
 
-            bool overlap(GameObject* object);
+            void setAttr(const Attributes& attr);
 
-            void center(bool centered = true);
 protected:
-    virtual void update() = 0;
+            bool canAttack();
 
-            sf::Vector2f getCenterPoint();
+            void setColor(const sf::Color& color);
 
-    Context&     m_context;
-    sf::Vector2f m_position;
-    bool         m_centered;
+            sf::Color getColor() const;
+
+            sf::Vector2f getSize();
+
+            sf::Vector2f getSpriteSize();
+
+            void correctAttr();
+
+            void updateHpBar();
+
+            void updateHpText();
+
+protected:
+    Environment& m_env;
+    uint         m_index;
+    Attributes   m_attr;
+    sf::Sprite   m_sprite;
+    sf::Text     m_hpText;
+    sf::Sprite   m_hpBar;
+    sf::Sprite   m_hpBarBack;
+    sf::Clock    m_attackClock;
 };
 
 #endif // GAMEOBJECT_H

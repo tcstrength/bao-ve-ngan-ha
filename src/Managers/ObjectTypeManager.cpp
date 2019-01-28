@@ -113,16 +113,16 @@ bool ObjectTypeManager::load(const char * fileName)
         else if (buffer.rfind("decay") != std::string::npos && type != nullptr)
         {
 //            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            type->attr.decay = std::stof(buffer.substr(buffer.rfind("=") + 1));
+            //type->attr.decay = std::stof(buffer.substr(buffer.rfind("=") + 1));
         }
-        else if (buffer.rfind("player") != std::string::npos && type != nullptr)
+        else if (buffer.rfind("team") != std::string::npos && type != nullptr)
         {
 //            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
             std::string player = buffer.substr(buffer.rfind("=") + 1);
             if (player == "PLAYER")
-                type->attr.player = Player::PLAYER;
+                type->attr.team = Team::PLAYER;
             else if (player == "COMPUTER")
-                type->attr.player = Player::COMPUTER;
+                type->attr.team = Team::COMPUTER;
         }
     }
 
@@ -139,10 +139,6 @@ void ObjectTypeManager::show()
         LOG_DEBUG("ANGLE: " << type.second->attr.angle);
         LOG_DEBUG("TEXTURE: " << type.second->attr.texture);
         LOG_DEBUG("MISSILE: " << type.second->attr.missile);
-        LOG_DEBUG("COLOR: "
-                  << (uint)type.second->attr.color.r << " "
-                  << (uint)type.second->attr.color.g << " "
-                  << (uint)type.second->attr.color.b);
         LOG_DEBUG("DAMAGE: " << type.second->attr.damage);
     }
 }

@@ -53,33 +53,39 @@ OBJECTS_DIR   = ./
 SOURCES       = ../src/main.cpp \
 		../src/Managers/TextureManager.cpp \
 		../src/Utils/Log.cpp \
-		../src/Objects/Object.cpp \
-		../src/Objects/ObjectType.cpp \
-		../src/Managers/ObjectTypeManager.cpp \
 		../src/Context.cpp \
 		../src/Config.cpp \
 		../src/Engines/GameEngine.cpp \
-		../src/Objects/Group.cpp \
 		../src/Utils/Indexer.cpp \
-		../src/Objects/Missile.cpp \
-		../src/Objects/FloatingText.cpp \
 		../src/Utils/Misc.cpp \
-		../src/Objects/GameObject.cpp 
+		../src/Environment/Environment.cpp \
+		../src/Environment/EnvironmentObject.cpp \
+		../src/Objects/FloatingText.cpp \
+		../src/Objects/GameObject.cpp \
+		../src/Objects/ObjectType.cpp \
+		../src/Managers/ObjectTypeManager.cpp \
+		../src/Parser/OBJTParser.cpp \
+		../src/Objects/Player.cpp \
+		../src/Objects/Missile.cpp \
+		../src/Entities/Camera.cpp 
 OBJECTS       = main.o \
 		TextureManager.o \
 		Log.o \
-		Object.o \
-		ObjectType.o \
-		ObjectTypeManager.o \
 		Context.o \
 		Config.o \
 		GameEngine.o \
-		Group.o \
 		Indexer.o \
-		Missile.o \
-		FloatingText.o \
 		Misc.o \
-		GameObject.o
+		Environment.o \
+		EnvironmentObject.o \
+		FloatingText.o \
+		GameObject.o \
+		ObjectType.o \
+		ObjectTypeManager.o \
+		OBJTParser.o \
+		Player.o \
+		Missile.o \
+		Camera.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -89,9 +95,68 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Baloo.pri \
+		/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDESu.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Kirigami2.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KItemModels.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJS.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJsEmbed.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KParts.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeople.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPty.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KRunner.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KScreen.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWaylandClient.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWaylandServer.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlRpcClient.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_concurrent.pri \
@@ -121,6 +186,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_location.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_location_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimedia_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediagsttools_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_opengl.pri \
@@ -141,6 +211,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmldevtools_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmltest_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quick_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quickcontrols2.pri \
@@ -154,11 +225,17 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_script_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_scripttools.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_scripttools_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_sensors.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_sensors_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_svg.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_svg_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_testlib_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_theme_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_uiplugin.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_uitools.pri \
@@ -173,6 +250,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webkitwidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri \
@@ -180,6 +259,15 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_ModemManagerQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_NetworkManagerQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Prison.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
@@ -200,34 +288,40 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
 		../../sfml_game_engine.pro src/Managers/TextureManager.h \
 		src/Utils/Log.h \
-		src/Objects/Object.h \
-		src/Objects/ObjectType.h \
-		src/Managers/ObjectTypeManager.h \
 		src/Context.h \
 		src/Config.h \
-		src/Objects/Attributes.h \
 		src/GameEngine.h \
 		src/Engines/GameEngine.h \
-		src/Objects/Group.h \
 		src/Utils/Indexer.h \
-		src/Objects/Missile.h \
-		src/Objects/FloatingText.h \
 		src/Utils/Misc.h \
-		src/Objects/GameObject.h ../src/main.cpp \
+		src/Environment/Environment.h \
+		src/Environment/EnvironmentObject.h \
+		src/Objects/Attributes.h \
+		src/Objects/FloatingText.h \
+		src/Objects/GameObject.h \
+		src/Objects/ObjectType.h \
+		src/Managers/ObjectTypeManager.h \
+		src/Parser/OBJTParser.h \
+		src/Objects/Player.h \
+		src/Objects/Missile.h \
+		src/Entities/Camera.h ../src/main.cpp \
 		../src/Managers/TextureManager.cpp \
 		../src/Utils/Log.cpp \
-		../src/Objects/Object.cpp \
-		../src/Objects/ObjectType.cpp \
-		../src/Managers/ObjectTypeManager.cpp \
 		../src/Context.cpp \
 		../src/Config.cpp \
 		../src/Engines/GameEngine.cpp \
-		../src/Objects/Group.cpp \
 		../src/Utils/Indexer.cpp \
-		../src/Objects/Missile.cpp \
-		../src/Objects/FloatingText.cpp \
 		../src/Utils/Misc.cpp \
-		../src/Objects/GameObject.cpp
+		../src/Environment/Environment.cpp \
+		../src/Environment/EnvironmentObject.cpp \
+		../src/Objects/FloatingText.cpp \
+		../src/Objects/GameObject.cpp \
+		../src/Objects/ObjectType.cpp \
+		../src/Managers/ObjectTypeManager.cpp \
+		../src/Parser/OBJTParser.cpp \
+		../src/Objects/Player.cpp \
+		../src/Objects/Missile.cpp \
+		../src/Entities/Camera.cpp
 QMAKE_TARGET  = sfml_game_engine
 DESTDIR       = 
 TARGET        = sfml_game_engine
@@ -248,9 +342,68 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Baloo.pri \
+		/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDESu.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Kirigami2.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KItemModels.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJS.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJsEmbed.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KParts.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeople.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPty.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KRunner.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KScreen.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWaylandClient.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWaylandServer.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KXmlRpcClient.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_accessibility_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_concurrent.pri \
@@ -280,6 +433,11 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_location.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_location_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimedia.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimedia_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediagsttools_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_network.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_network_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_opengl.pri \
@@ -300,6 +458,7 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmldevtools_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmltest.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_qmltest_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quick_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_quickcontrols2.pri \
@@ -313,11 +472,17 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/modules/qt_lib_script_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_scripttools.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_scripttools_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_sensors.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_sensors_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_service_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_sql_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_svg.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_svg_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_testlib.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_testlib_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_theme_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_uiplugin.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_uitools.pri \
@@ -332,6 +497,8 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webkit.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webkitwidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri \
@@ -339,6 +506,15 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/lib/qt/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_ModemManagerQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_NetworkManagerQt.pri \
+		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Prison.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
 		/usr/lib/qt/mkspecs/linux-g++/qmake.conf \
@@ -368,9 +544,68 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/common/g++-base.conf:
 /usr/lib/qt/mkspecs/common/g++-unix.conf:
 /usr/lib/qt/mkspecs/qconfig.pri:
+/usr/lib/qt/mkspecs/modules/qt_Attica.pri:
+/usr/lib/qt/mkspecs/modules/qt_Baloo.pri:
+/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri:
+/usr/lib/qt/mkspecs/modules/qt_KActivities.pri:
+/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri:
+/usr/lib/qt/mkspecs/modules/qt_KArchive.pri:
 /usr/lib/qt/mkspecs/modules/qt_KAuth.pri:
+/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri:
+/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCrash.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDESu.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri:
+/usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri:
+/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri:
+/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri:
+/usr/lib/qt/mkspecs/modules/qt_KI18n.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOGui.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIOWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_Kirigami2.pri:
 /usr/lib/qt/mkspecs/modules/qt_KItemModels.pri:
+/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJS.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJsEmbed.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri:
+/usr/lib/qt/mkspecs/modules/qt_KParts.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPeople.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPty.pri:
+/usr/lib/qt/mkspecs/modules/qt_KRunner.pri:
+/usr/lib/qt/mkspecs/modules/qt_KScreen.pri:
+/usr/lib/qt/mkspecs/modules/qt_KService.pri:
+/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri:
+/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri:
+/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWallet.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWaylandClient.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWaylandServer.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWidgetsAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KWindowSystem.pri:
+/usr/lib/qt/mkspecs/modules/qt_KXmlGui.pri:
+/usr/lib/qt/mkspecs/modules/qt_KXmlRpcClient.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_accessibility_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_concurrent.pri:
@@ -400,6 +635,11 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/modules/qt_lib_linuxaccessibility_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_location.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_location_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_multimedia.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_multimedia_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediagsttools_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_multimediawidgets_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_network.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_network_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_opengl.pri:
@@ -420,6 +660,7 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/modules/qt_lib_qmldevtools_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_qmltest.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_qmltest_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_quick.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_quick_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_quickcontrols2.pri:
@@ -433,11 +674,17 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/modules/qt_lib_script_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_scripttools.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_scripttools_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_sensors.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_sensors_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_service_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_sql.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_sql_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_svg.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_svg_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_testlib.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_testlib_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_texttospeech_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_theme_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_uiplugin.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_uitools.pri:
@@ -452,6 +699,8 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/modules/qt_lib_webenginecoreheaders_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_webkit.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_webkitwidgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri:
@@ -459,6 +708,15 @@ Makefile: ../sfml_game_engine.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/
 /usr/lib/qt/mkspecs/modules/qt_lib_xcb_qpa_lib_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xml.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_ModemManagerQt.pri:
+/usr/lib/qt/mkspecs/modules/qt_NetworkManagerQt.pri:
+/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri:
+/usr/lib/qt/mkspecs/modules/qt_Prison.pri:
+/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_Solid.pri:
+/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri:
+/usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri:
 /usr/lib/qt/mkspecs/features/qt_functions.prf:
 /usr/lib/qt/mkspecs/features/qt_config.prf:
 /usr/lib/qt/mkspecs/linux-g++/qmake.conf:
@@ -530,11 +788,12 @@ main.o: ../src/main.cpp ../src/Engines/GameEngine.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
-		../src/Objects/Group.h \
+		../src/Entities/Camera.h \
+		../src/Environment/Environment.h \
+		../src/Environment/EnvironmentObject.h \
 		../src/Objects/GameObject.h \
-		../src/Objects/Object.h \
+		../src/Objects/Player.h \
 		../src/Objects/Missile.h \
-		../src/Objects/FloatingText.h \
 		../src/Utils/Misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
@@ -545,36 +804,6 @@ TextureManager.o: ../src/Managers/TextureManager.cpp ../src/Managers/TextureMana
 Log.o: ../src/Utils/Log.cpp ../src/Utils/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Log.o ../src/Utils/Log.cpp
 
-Object.o: ../src/Objects/Object.cpp ../src/Objects/Object.h \
-		../src/Objects/ObjectType.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Objects/Attributes.h \
-		../src/Objects/Missile.h \
-		../src/Context.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Config.h \
-		../src/Objects/GameObject.h \
-		../src/Objects/Group.h \
-		../src/Objects/FloatingText.h \
-		../src/Utils/Misc.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Object.o ../src/Objects/Object.cpp
-
-ObjectType.o: ../src/Objects/ObjectType.cpp ../src/Objects/ObjectType.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Objects/Attributes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectType.o ../src/Objects/ObjectType.cpp
-
-ObjectTypeManager.o: ../src/Managers/ObjectTypeManager.cpp ../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Utils/Log.h \
-		../src/Objects/ObjectType.h \
-		../src/Managers/TextureManager.h \
-		../src/Objects/Attributes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectTypeManager.o ../src/Managers/ObjectTypeManager.cpp
-
 Context.o: ../src/Context.cpp ../src/Context.h \
 		../src/Managers/TextureManager.h \
 		../src/Utils/Log.h \
@@ -582,6 +811,7 @@ Context.o: ../src/Context.cpp ../src/Context.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
 		../src/Config.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Context.o ../src/Context.cpp
 
@@ -597,60 +827,115 @@ GameEngine.o: ../src/Engines/GameEngine.cpp ../src/Engines/GameEngine.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
-		../src/Objects/Group.h \
+		../src/Entities/Camera.h \
+		../src/Environment/Environment.h \
+		../src/Environment/EnvironmentObject.h \
 		../src/Objects/GameObject.h \
-		../src/Objects/Object.h \
+		../src/Objects/Player.h \
 		../src/Objects/Missile.h \
-		../src/Objects/FloatingText.h \
 		../src/Utils/Misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameEngine.o ../src/Engines/GameEngine.cpp
-
-Group.o: ../src/Objects/Group.cpp ../src/Objects/Group.h \
-		../src/Objects/GameObject.h \
-		../src/Context.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Objects/ObjectType.h \
-		../src/Objects/Attributes.h \
-		../src/Config.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Group.o ../src/Objects/Group.cpp
 
 Indexer.o: ../src/Utils/Indexer.cpp ../src/Utils/Indexer.h \
 		../src/Utils/Log.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Indexer.o ../src/Utils/Indexer.cpp
 
-Missile.o: ../src/Objects/Missile.cpp ../src/Objects/Missile.h \
-		../src/Context.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Objects/ObjectType.h \
-		../src/Objects/Attributes.h \
-		../src/Config.h \
-		../src/Objects/GameObject.h \
-		../src/Objects/Group.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Missile.o ../src/Objects/Missile.cpp
-
-FloatingText.o: ../src/Objects/FloatingText.cpp ../src/Objects/FloatingText.h \
-		../src/Context.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Objects/ObjectType.h \
-		../src/Objects/Attributes.h \
-		../src/Config.h \
-		../src/Utils/Misc.h \
-		../src/Objects/GameObject.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FloatingText.o ../src/Objects/FloatingText.cpp
-
 Misc.o: ../src/Utils/Misc.cpp ../src/Utils/Misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Misc.o ../src/Utils/Misc.cpp
 
+Environment.o: ../src/Environment/Environment.cpp ../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Environment/EnvironmentObject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Environment.o ../src/Environment/Environment.cpp
+
+EnvironmentObject.o: ../src/Environment/EnvironmentObject.cpp ../src/Environment/EnvironmentObject.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
+		../src/Config.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EnvironmentObject.o ../src/Environment/EnvironmentObject.cpp
+
+FloatingText.o: ../src/Objects/FloatingText.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o FloatingText.o ../src/Objects/FloatingText.cpp
+
 GameObject.o: ../src/Objects/GameObject.cpp ../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Environment/EnvironmentObject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameObject.o ../src/Objects/GameObject.cpp
+
+ObjectType.o: ../src/Objects/ObjectType.cpp ../src/Objects/ObjectType.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Objects/Attributes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectType.o ../src/Objects/ObjectType.cpp
+
+ObjectTypeManager.o: ../src/Managers/ObjectTypeManager.cpp ../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Utils/Log.h \
+		../src/Objects/ObjectType.h \
+		../src/Managers/TextureManager.h \
+		../src/Objects/Attributes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectTypeManager.o ../src/Managers/ObjectTypeManager.cpp
+
+OBJTParser.o: ../src/Parser/OBJTParser.cpp ../src/Parser/OBJTParser.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJTParser.o ../src/Parser/OBJTParser.cpp
+
+Player.o: ../src/Objects/Player.cpp ../src/Objects/Player.h \
+		../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Environment/EnvironmentObject.h \
+		../src/Objects/Missile.h \
+		../src/Utils/Misc.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Player.o ../src/Objects/Player.cpp
+
+Missile.o: ../src/Objects/Missile.cpp ../src/Objects/Missile.h \
+		../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Environment/EnvironmentObject.h \
+		../src/Utils/Misc.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Missile.o ../src/Objects/Missile.cpp
+
+Camera.o: ../src/Entities/Camera.cpp ../src/Entities/Camera.h \
 		../src/Context.h \
 		../src/Managers/TextureManager.h \
 		../src/Utils/Log.h \
@@ -659,7 +944,7 @@ GameObject.o: ../src/Objects/GameObject.cpp ../src/Objects/GameObject.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
 		../src/Config.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameObject.o ../src/Objects/GameObject.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o ../src/Entities/Camera.cpp
 
 ####### Install
 
