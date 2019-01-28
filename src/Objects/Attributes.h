@@ -5,9 +5,9 @@
 
 enum Team
 {
-    PLAYER,
-    COMPUTER,
-    STRUCTURE,
+    ALLY,
+    ENEMY,
+    ELSE,
 };
 
 enum DamageType
@@ -19,11 +19,12 @@ enum DamageType
 
 struct Attributes
 {
-    Team         team = Team::COMPUTER;
+    Team         team = Team::ENEMY;
     std::string  texture = "hero.png";
     sf::Color    color = sf::Color::White;
     float        scale = 1.f;
     float        angle = 0.f;
+    int          speed = 0.f;
     int          damage = 0.f;
     DamageType   dmgType = DamageType::NORMAL;
     int          hitpoints = 100;
@@ -33,6 +34,8 @@ struct Attributes
     int          missileSpeed = 0.f;
     int          missileCount = 0;
     bool         showHP = true;
+    float        decay = 0.f;
+    bool         autoAttack = false;
 };
 
 #endif // ATTRIBUTES_H

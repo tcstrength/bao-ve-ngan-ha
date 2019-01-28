@@ -25,7 +25,7 @@ const sf::Vector2f &Camera::getPosition()
 
 void Camera::move(int dist, float rad)
 {
-    LOG_DEBUG("Move");
+//    LOG_DEBUG("Move");
     auto pos = getPosition();
     pos.x = pos.x + dist * std::cos(rad);
     pos.y = pos.y + dist * std::sin(rad);

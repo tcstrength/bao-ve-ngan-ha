@@ -1,13 +1,17 @@
-[Id=1]
-scale=5.0
-angle=0.0
-damage=5
-damageType=NORMAL
-attackSpeed=3.0
-missileSpeed=15.0
-hitpoints=50
-decay=1
-missile=green_craft_missile.png
-texture=green_craft.png
-player=COMPUTER
-[End]
+[1]
+team         = ENEMY
+texture      = greencraft.png
+color        = 0, 255, 255
+scale        = 4.0
+angle        = 180.0
+speed        = 3
+damage       = 5
+damageType   = NORMAL
+autoAttack   = 1
+attackSpeed  = 1.0
+hitpoints    = 500
+decay        = 1
+missileSpeed = 15.0
+missileCount = 1
+missile      = greencraft_missile.png
+showHP       = 1

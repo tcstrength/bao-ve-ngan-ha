@@ -10,7 +10,7 @@ EnvironmentObject::EnvironmentObject()
 
 EnvironmentObject::~EnvironmentObject()
 {
-    LOG_DEBUG("Object has been deleted " << this);
+//    LOG_DEBUG("Object has been deleted " << this);
 }
 
 void EnvironmentObject::tick()

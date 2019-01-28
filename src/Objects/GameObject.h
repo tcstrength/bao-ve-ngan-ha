@@ -7,7 +7,7 @@
 class GameObject : public EnvironmentObject
 {
 public:
-    GameObject(Environment& environment, Team team, float scale = 1.f, sf::Vector2f pos = sf::Vector2f(100.f, 100.f));
+    GameObject(Environment& environment, const Attributes& attr);
 
     virtual void tick();
 
@@ -17,7 +17,7 @@ public:
 
     virtual bool isDead();
 
-    virtual void attack();
+    virtual void attack() = 0;
 
             void del();
 

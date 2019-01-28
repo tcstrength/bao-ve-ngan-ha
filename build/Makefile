@@ -64,10 +64,11 @@ SOURCES       = ../src/main.cpp \
 		../src/Objects/GameObject.cpp \
 		../src/Objects/ObjectType.cpp \
 		../src/Managers/ObjectTypeManager.cpp \
-		../src/Parser/OBJTParser.cpp \
-		../src/Objects/Player.cpp \
+		../src/Parsers/OBJTParser.cpp \
 		../src/Objects/Missile.cpp \
-		../src/Entities/Camera.cpp 
+		../src/Entities/Camera.cpp \
+		../src/Objects/Hero.cpp \
+		../src/Objects/BasicCraft.cpp 
 OBJECTS       = main.o \
 		TextureManager.o \
 		Log.o \
@@ -83,9 +84,10 @@ OBJECTS       = main.o \
 		ObjectType.o \
 		ObjectTypeManager.o \
 		OBJTParser.o \
-		Player.o \
 		Missile.o \
-		Camera.o
+		Camera.o \
+		Hero.o \
+		BasicCraft.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -301,10 +303,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		src/Objects/GameObject.h \
 		src/Objects/ObjectType.h \
 		src/Managers/ObjectTypeManager.h \
-		src/Parser/OBJTParser.h \
-		src/Objects/Player.h \
+		src/Parsers/OBJTParser.h \
 		src/Objects/Missile.h \
-		src/Entities/Camera.h ../src/main.cpp \
+		src/Entities/Camera.h \
+		src/Objects/Hero.h \
+		src/Objects/BasicCraft.h ../src/main.cpp \
 		../src/Managers/TextureManager.cpp \
 		../src/Utils/Log.cpp \
 		../src/Context.cpp \
@@ -318,10 +321,11 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		../src/Objects/GameObject.cpp \
 		../src/Objects/ObjectType.cpp \
 		../src/Managers/ObjectTypeManager.cpp \
-		../src/Parser/OBJTParser.cpp \
-		../src/Objects/Player.cpp \
+		../src/Parsers/OBJTParser.cpp \
 		../src/Objects/Missile.cpp \
-		../src/Entities/Camera.cpp
+		../src/Entities/Camera.cpp \
+		../src/Objects/Hero.cpp \
+		../src/Objects/BasicCraft.cpp
 QMAKE_TARGET  = sfml_game_engine
 DESTDIR       = 
 TARGET        = sfml_game_engine
@@ -788,13 +792,14 @@ main.o: ../src/main.cpp ../src/Engines/GameEngine.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
+		../src/Utils/Misc.h \
 		../src/Environment/Environment.h \
 		../src/Environment/EnvironmentObject.h \
 		../src/Objects/GameObject.h \
-		../src/Objects/Player.h \
-		../src/Objects/Missile.h \
-		../src/Utils/Misc.h
+		../src/Objects/Hero.h \
+		../src/Objects/Missile.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 TextureManager.o: ../src/Managers/TextureManager.cpp ../src/Managers/TextureManager.h \
@@ -811,8 +816,10 @@ Context.o: ../src/Context.cpp ../src/Context.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
-		../src/Config.h
+		../src/Config.h \
+		../src/Utils/Misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Context.o ../src/Context.cpp
 
 Config.o: ../src/Config.cpp ../src/Config.h
@@ -827,13 +834,14 @@ GameEngine.o: ../src/Engines/GameEngine.cpp ../src/Engines/GameEngine.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
+		../src/Utils/Misc.h \
 		../src/Environment/Environment.h \
 		../src/Environment/EnvironmentObject.h \
 		../src/Objects/GameObject.h \
-		../src/Objects/Player.h \
-		../src/Objects/Missile.h \
-		../src/Utils/Misc.h
+		../src/Objects/Hero.h \
+		../src/Objects/Missile.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameEngine.o ../src/Engines/GameEngine.cpp
 
 Indexer.o: ../src/Utils/Indexer.cpp ../src/Utils/Indexer.h \
@@ -851,8 +859,10 @@ Environment.o: ../src/Environment/Environment.cpp ../src/Environment/Environment
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Config.h \
+		../src/Utils/Misc.h \
 		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Environment.o ../src/Environment/Environment.cpp
 
@@ -864,8 +874,10 @@ EnvironmentObject.o: ../src/Environment/EnvironmentObject.cpp ../src/Environment
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
-		../src/Config.h
+		../src/Config.h \
+		../src/Utils/Misc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EnvironmentObject.o ../src/Environment/EnvironmentObject.cpp
 
 FloatingText.o: ../src/Objects/FloatingText.cpp 
@@ -880,8 +892,10 @@ GameObject.o: ../src/Objects/GameObject.cpp ../src/Objects/GameObject.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Config.h \
+		../src/Utils/Misc.h \
 		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameObject.o ../src/Objects/GameObject.cpp
 
@@ -896,28 +910,16 @@ ObjectTypeManager.o: ../src/Managers/ObjectTypeManager.cpp ../src/Managers/Objec
 		../src/Utils/Log.h \
 		../src/Objects/ObjectType.h \
 		../src/Managers/TextureManager.h \
-		../src/Objects/Attributes.h
+		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ObjectTypeManager.o ../src/Managers/ObjectTypeManager.cpp
 
-OBJTParser.o: ../src/Parser/OBJTParser.cpp ../src/Parser/OBJTParser.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJTParser.o ../src/Parser/OBJTParser.cpp
-
-Player.o: ../src/Objects/Player.cpp ../src/Objects/Player.h \
-		../src/Objects/GameObject.h \
-		../src/Environment/Environment.h \
-		../src/Context.h \
-		../src/Managers/TextureManager.h \
+OBJTParser.o: ../src/Parsers/OBJTParser.cpp ../src/Parsers/OBJTParser.h \
 		../src/Utils/Log.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
-		../src/Objects/Attributes.h \
-		../src/Entities/Camera.h \
-		../src/Config.h \
-		../src/Environment/EnvironmentObject.h \
-		../src/Objects/Missile.h \
-		../src/Utils/Misc.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Player.o ../src/Objects/Player.cpp
+		../src/Managers/TextureManager.h \
+		../src/Objects/Attributes.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o OBJTParser.o ../src/Parsers/OBJTParser.cpp
 
 Missile.o: ../src/Objects/Missile.cpp ../src/Objects/Missile.h \
 		../src/Objects/GameObject.h \
@@ -929,13 +931,22 @@ Missile.o: ../src/Objects/Missile.cpp ../src/Objects/Missile.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Config.h \
-		../src/Environment/EnvironmentObject.h \
-		../src/Utils/Misc.h
+		../src/Utils/Misc.h \
+		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Missile.o ../src/Objects/Missile.cpp
 
 Camera.o: ../src/Entities/Camera.cpp ../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Utils/Misc.h \
+		../src/Utils/Log.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o ../src/Entities/Camera.cpp
+
+Hero.o: ../src/Objects/Hero.cpp ../src/Objects/Hero.h \
+		../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
 		../src/Context.h \
 		../src/Managers/TextureManager.h \
 		../src/Utils/Log.h \
@@ -943,8 +954,31 @@ Camera.o: ../src/Entities/Camera.cpp ../src/Entities/Camera.h \
 		../src/Utils/Indexer.h \
 		../src/Objects/ObjectType.h \
 		../src/Objects/Attributes.h \
-		../src/Config.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o ../src/Entities/Camera.cpp
+		../src/Parsers/OBJTParser.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Utils/Misc.h \
+		../src/Environment/EnvironmentObject.h \
+		../src/Objects/Missile.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Hero.o ../src/Objects/Hero.cpp
+
+BasicCraft.o: ../src/Objects/BasicCraft.cpp ../src/Objects/BasicCraft.h \
+		../src/Objects/Missile.h \
+		../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Utils/Misc.h \
+		../src/Environment/EnvironmentObject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BasicCraft.o ../src/Objects/BasicCraft.cpp
 
 ####### Install
 

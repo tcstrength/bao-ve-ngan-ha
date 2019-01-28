@@ -21,10 +21,18 @@ void GameEngine::init()
 
     mng->load("hero.objt");
     mng->load("greencraft.objt");
-    mng->load("greencraft_boss.objt");
 
-    auto player = new Player(m_env);
-    new GameObject(m_env, Team::COMPUTER, 10.f);
+    new Hero(m_env);
+    new BasicCraft(m_env);
+    m_env.last()->setPosition(sf::Vector2f(200, 200));
+    new BasicCraft(m_env);
+    m_env.last()->setPosition(sf::Vector2f(400, 200));
+    new BasicCraft(m_env);
+    m_env.last()->setPosition(sf::Vector2f(300, 100));
+    new BasicCraft(m_env);
+    m_env.last()->setPosition(sf::Vector2f(-200, -200));
+    new BasicCraft(m_env);
+    m_env.last()->setPosition(sf::Vector2f(-200, 200));
 }
 
 int GameEngine::run()

@@ -7,7 +7,7 @@ ObjectTypeManager *ObjectTypeManager::instance()
     return &mng;
 }
 
-ObjectType &ObjectTypeManager::make(uint id)
+Attributes &ObjectTypeManager::make(uint id)
 {
     add(new ObjectType(id));
     return get(id);
@@ -27,103 +27,44 @@ void ObjectTypeManager::add(ObjectType* objectType)
     }
 }
 
-ObjectType& ObjectTypeManager::get(uint id)
+Attributes & ObjectTypeManager::get(uint id)
 {
     auto it = m_objectTypes.find(id);
-    return *it->second;
+    return it->second->attr;
 }
 
 bool ObjectTypeManager::load(const char * fileName)
 {
-    std::string path = std::string("types/") + fileName;
-    std::ifstream inStr(path);
-    std::string buffer;
-    ObjectType* type = nullptr;
-    int id = -1;
+    std::string realPath("types/");
+    realPath += fileName;
+    OBJTParser parser;
+    parser.load(realPath.c_str());
 
-    while (std::getline(inStr, buffer))
+    auto indices = parser.getIndices();
+
+    for (auto id : indices)
     {
-//        LOG_DEBUG(buffer);
+        Attributes attr = make(id);
 
-        if (buffer[0] == '#')
-            continue;
+        attr.team = parser.loadTeam(id, "team");
+        attr.texture = parser.loadString(id, "texture");
+        attr.color = parser.loadColor(id, "color");
+        attr.scale = parser.loadFloat(id, "scale");
+        attr.angle = parser.loadFloat(id, "angle");
+        attr.speed = parser.loadInt(id, "speed");
+        attr.damage = parser.loadInt(id, "damage");
+        attr.dmgType = parser.loadDamageType(id, "damageType");
+        attr.attackSpeed = parser.loadFloat(id, "attackSpeed");
+        attr.autoAttack = parser.loadInt(id, "autoAttack");
+        attr.hitpoints = parser.loadInt(id, "hitpoints");
+        attr.maxHitpoints = attr.hitpoints;
+        attr.decay = parser.loadFloat(id, "decay");
+        attr.missile = parser.loadString(id, "missile");
+        attr.missileCount = parser.loadInt(id, "missileCount");
+        attr.missileSpeed = parser.loadInt(id, "missileSpeed");
+        attr.showHP = parser.loadInt(id, "showHP");
 
-        if (buffer.rfind("[Id") != std::string::npos)
-        {
-            id = std::stoi(buffer.substr(buffer.rfind("=") + 1, buffer.size() - 5));
-//            LOG_DEBUG(id);
-            type = &make(static_cast<uint>(id));
-        }
-        else if (buffer.rfind("scale") != std::string::npos && type != nullptr)
-        {
-            type->attr.scale = std::stof(buffer.substr(buffer.rfind("=") + 1));
-//            LOG_DEBUG(type->attr.scale);
-        }
-        else if (buffer.rfind("angle") != std::string::npos && type != nullptr)
-        {
-            type->attr.angle = std::stof(buffer.substr(buffer.rfind("=") + 1));
-//            LOG_DEBUG(type->attr.angle);
-        }
-        else if (buffer.rfind("damage=") != std::string::npos && type != nullptr)
-        {
-            type->attr.damage = std::stoi(buffer.substr(buffer.rfind("=") + 1));
-//            LOG_DEBUG(type->attr.damage);
-        }
-        else if (buffer.rfind("texture") != std::string::npos && type != nullptr)
-        {
-            type->attr.texture = buffer.substr(buffer.rfind("=") + 1);
-//            LOG_DEBUG(type->attr.texture);
-        }
-        else if (buffer.rfind("missile=") != std::string::npos && type != nullptr)
-        {
-            type->attr.missile = buffer.substr(buffer.rfind("=") + 1);
-        }
-        else if (buffer.rfind("damageType") != std::string::npos && type != nullptr)
-        {
-            std::string dmg = buffer.substr(buffer.rfind("=") + 1);
-            if (dmg == "NUCLEAR")
-            {
-                type->attr.dmgType = DamageType::NUCLEAR;
-            }
-            else if (dmg == "FIRE")
-            {
-                type->attr.dmgType = DamageType::FIRE;
-            }
-        }
-        else if (buffer.rfind("attackSpeed") != std::string::npos && type != nullptr)
-        {
-//            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            type->attr.attackSpeed = std::stof(buffer.substr(buffer.rfind("=") + 1));
-        }
-        else if (buffer.rfind("missileSpeed") != std::string::npos && type != nullptr)
-        {
-//            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            type->attr.missileSpeed = std::stof(buffer.substr(buffer.rfind("=") + 1));
-        }
-        else if (buffer.rfind("missileCount") != std::string::npos && type != nullptr)
-        {
-            type->attr.missileCount = std::stoi(buffer.substr(buffer.rfind("=") + 1));
-        }
-        else if (buffer.rfind("hitpoints") != std::string::npos && type != nullptr)
-        {
-//            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            type->attr.hitpoints = std::stoi(buffer.substr(buffer.rfind("=") + 1));
-            type->attr.maxHitpoints = type->attr.hitpoints;
-        }
-        else if (buffer.rfind("decay") != std::string::npos && type != nullptr)
-        {
-//            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            //type->attr.decay = std::stof(buffer.substr(buffer.rfind("=") + 1));
-        }
-        else if (buffer.rfind("team") != std::string::npos && type != nullptr)
-        {
-//            LOG_DEBUG(buffer.substr(buffer.rfind("=") + 1));
-            std::string player = buffer.substr(buffer.rfind("=") + 1);
-            if (player == "PLAYER")
-                type->attr.team = Team::PLAYER;
-            else if (player == "COMPUTER")
-                type->attr.team = Team::COMPUTER;
-        }
+        get(id) = attr;
     }
 
     return true;
@@ -146,4 +87,10 @@ void ObjectTypeManager::show()
 ObjectTypeManager::ObjectTypeManager()
 {
 
+}
+
+ObjectTypeManager::~ObjectTypeManager()
+{
+    for (auto objT : m_objectTypes)
+        delete objT.second;
 }

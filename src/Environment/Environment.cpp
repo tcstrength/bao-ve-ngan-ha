@@ -22,7 +22,15 @@ uint Environment::add(EnvironmentObject * obj)
     uint index = m_index.allocate();
 
     m_objects[index] = obj;
+    m_lastObject = obj;
 
+    return index;
+}
+
+uint Environment::mslAdd(EnvironmentObject * obj)
+{
+    uint index = m_index.allocate();
+    m_missiles[index] = obj;
     return index;
 }
 
@@ -35,6 +43,21 @@ bool Environment::del(uint id)
         delete it->second;
         m_index.deallocate(id);
         m_objects.erase(it);
+        return true;
+    }
+
+    return false;
+}
+
+bool Environment::mslDel(uint id)
+{
+    auto it = m_missiles.find(id);
+
+    if (it != m_missiles.end())
+    {
+        delete it->second;
+        m_index.deallocate(id);
+        m_missiles.erase(it);
         return true;
     }
 
@@ -73,9 +96,19 @@ EnvironmentObject *Environment::overlap(EnvironmentObject * obj)
     return nullptr;
 }
 
+EnvironmentObject *Environment::last()
+{
+    return m_lastObject;
+}
+
 void Environment::tick()
 {
     for (auto it = m_objects.begin(); it != m_objects.end(); ++it)
+    {
+        it->second->tick();
+    }
+
+    for (auto it = m_missiles.begin(); it != m_missiles.end(); ++it)
     {
         it->second->tick();
     }
@@ -87,9 +120,46 @@ void Environment::render()
     {
         it.second->render(m_context.window);
     }
+
+    for (auto it = m_missiles.begin(); it != m_missiles.end(); ++it)
+    {
+        it->second->render(m_context.window);
+    }
 }
 
 Context &Environment::getContext()
 {
     return m_context;
+}
+
+Camera &Environment::getCamera()
+{
+    return m_context.camera;
+}
+
+std::list<EnvironmentObject *> Environment::pick(sf::Vector2f center, int radius)
+{
+    std::list<EnvironmentObject*> objects;
+    sf::Vector2f pos;
+    double dx;
+    double dy;
+
+    for (auto it : m_objects)
+    {
+        pos = it.second->getPosition();
+        dx = std::pow(center.x - pos.x, 2);
+        dy = std::pow(center.y - pos.y, 2);
+
+        if (std::sqrt(dx + dy) < radius)
+        {
+            objects.push_back(it.second);
+        }
+    }
+
+    return objects;
+}
+
+std::map<uint, EnvironmentObject *> Environment::getObjects() const
+{
+    return m_objects;
 }

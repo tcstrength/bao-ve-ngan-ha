@@ -7,7 +7,8 @@
 #include "../Managers/ObjectTypeManager.h"
 #include "../Environment/Environment.h"
 #include "../Objects/GameObject.h"
-#include "../Objects/Player.h"
+#include "../Objects/Hero.h"
+#include "../Objects/BasicCraft.h"
 
 class GameEngine
 {

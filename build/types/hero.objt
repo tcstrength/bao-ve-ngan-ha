@@ -1,14 +1,16 @@
-[Id=0]
-scale=5.0
-angle=0.0
-damage=15
-damageType=NORMAL
-attackSpeed=0.25
-hitpoints=500
-decay=1
-missileSpeed=15.0
-missileCount=3
-missile=hero_missile.png
-texture=hero.png
-player=PLAYER
-[End]
+[0]
+team         = ALLY
+texture      = hero.png
+color        = 255, 255, 255
+scale        = 5.0
+angle        = 0.0
+speed        = 5
+damage       = 100
+damageType   = NORMAL
+attackSpeed  = 0.25
+hitpoints    = 500
+decay        = 1
+missileSpeed = 15.0
+missileCount = 3
+missile      = hero_missile.png
+showHP       = 1

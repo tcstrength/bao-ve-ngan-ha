@@ -10,6 +10,8 @@ public:
 
     friend class GameObject;
 
+    friend class Missile;
+
     EnvironmentObject();
 
     virtual ~EnvironmentObject();
@@ -26,9 +28,9 @@ public:
 
     virtual sf::Vector2f getSize() = 0;
 
-    virtual void setColor(const sf::Color& color) = 0;
+    virtual void setColor(const sf::Color& color) {}
 
-    virtual sf::Color getColor() const = 0;
+    virtual sf::Color getColor() const {return sf::Color::White;}
 
     sf::Vector2f getPosition() const;
 

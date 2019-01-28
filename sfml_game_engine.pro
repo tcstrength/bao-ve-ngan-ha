@@ -18,10 +18,11 @@ SOURCES += \
     src/Objects/GameObject.cpp \
     src/Objects/ObjectType.cpp \
     src/Managers/ObjectTypeManager.cpp \
-    src/Parser/OBJTParser.cpp \
-    src/Objects/Player.cpp \
+    src/Parsers/OBJTParser.cpp \
     src/Objects/Missile.cpp \
-    src/Entities/Camera.cpp
+    src/Entities/Camera.cpp \
+    src/Objects/Hero.cpp \
+    src/Objects/BasicCraft.cpp
 
 LIBS += -lsfml-system -lsfml-window -lsfml-graphics
 
@@ -41,7 +42,8 @@ HEADERS += \
     src/Objects/GameObject.h \
     src/Objects/ObjectType.h \
     src/Managers/ObjectTypeManager.h \
-    src/Parser/OBJTParser.h \
-    src/Objects/Player.h \
+    src/Parsers/OBJTParser.h \
     src/Objects/Missile.h \
-    src/Entities/Camera.h
+    src/Entities/Camera.h \
+    src/Objects/Hero.h \
+    src/Objects/BasicCraft.h

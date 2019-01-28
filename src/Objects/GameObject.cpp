@@ -1,13 +1,11 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Environment & environment, Team team, float scale, sf::Vector2f pos)
+GameObject::GameObject(Environment & environment, const Attributes& attr)
 :   m_env(environment)
 ,   m_index(m_env.add(this))
+,   m_attr(attr)
 {
     static TextureManager* mng = TextureManager::instance();
-
-    m_attr.team = team;
-    m_attr.scale = scale;
 
     m_hpBar.setTexture(mng->get("hpbar.png"));
     m_hpBar.setScale(1.f, 0.5);
@@ -20,7 +18,7 @@ GameObject::GameObject(Environment & environment, Team team, float scale, sf::Ve
     m_sprite.setTexture(mng->get(m_attr.texture.c_str()));
     m_sprite.setOrigin(getSpriteSize().x / 2, getSpriteSize().y / 2);
 
-    setPosition(pos);
+    update();
 }
 
 void GameObject::tick()
@@ -186,7 +184,8 @@ void GameObject::setAttr(const Attributes & attr)
 
 bool GameObject::canAttack()
 {
-    return m_attackClock.getElapsedTime().asSeconds() >= m_attr.attackSpeed;
+    return m_attr.hitpoints > 0 &&
+           m_attackClock.getElapsedTime().asSeconds() >= m_attr.attackSpeed;
 }
 
 void GameObject::setColor(const sf::Color & color)
