@@ -20,12 +20,6 @@ void OBJTParser::load(const char *fileName)
             m_keys[id][key] = value;
         }
     }
-
-    for (auto key : m_keys)
-        for (auto value : m_keys[key.first])
-        {
-            LOG_DEBUG(value.first << "=" << value.second);
-        }
 }
 
 float OBJTParser::loadFloat(uint id, const char * key)

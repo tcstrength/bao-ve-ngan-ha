@@ -21,18 +21,35 @@ void GameEngine::init()
 
     mng->load("hero.objt");
     mng->load("greencraft.objt");
+    mng->load("greencraft_large.objt");
 
     new Hero(m_env);
-    new BasicCraft(m_env);
-    m_env.last()->setPosition(sf::Vector2f(200, 200));
-    new BasicCraft(m_env);
-    m_env.last()->setPosition(sf::Vector2f(400, 200));
-    new BasicCraft(m_env);
-    m_env.last()->setPosition(sf::Vector2f(300, 100));
-    new BasicCraft(m_env);
-    m_env.last()->setPosition(sf::Vector2f(-200, -200));
-    new BasicCraft(m_env);
-    m_env.last()->setPosition(sf::Vector2f(-200, 200));
+
+    for (uint i = 0; i < 1000; ++i)
+    {
+        sf::Vector2f pos;
+        sf::Color color;
+        pos.x = randBetween(-10000, 10000);
+        pos.y = randBetween(-10000, 10000);
+
+        color.r = rand() % 255;
+        color.g = rand() % 255;
+        color.b = rand() % 255;
+
+        new SpecialEffect(m_env, "glow.png", pos, color, randf());
+    }
+
+    for (uint i = 0; i < 200; ++i)
+    {
+        new BasicCraft(m_env);
+        m_env.last()->setPosition(sf::Vector2f(randBetween(-5000, 5000), randBetween(-5000, 5000)));
+    }
+
+    for (uint i = 0; i < 50; ++i)
+    {
+        new BasicCraft(m_env, 2);
+        m_env.last()->setPosition(sf::Vector2f(randBetween(-5000, 5000), randBetween(-5000, 5000)));
+    }
 }
 
 int GameEngine::run()
@@ -64,6 +81,7 @@ void GameEngine::render()
 void GameEngine::tick()
 {
     m_env.tick();
+    m_context.camera.tick();
 }
 
 

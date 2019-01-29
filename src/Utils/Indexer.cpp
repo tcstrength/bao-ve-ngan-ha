@@ -28,6 +28,23 @@ void Indexer::deallocate(uint index)
 
 }
 
+bool Indexer::pop(uint & index)
+{
+    if (m_index == 0 && m_stack.empty())
+        return false;
+    if (m_stack.empty())
+    {
+        index = m_index--;
+    }
+    else
+    {
+        index = m_stack.top();
+        m_stack.pop();
+    }
+
+    return true;
+}
+
 uint Indexer::size()
 {
     return m_index;

@@ -210,3 +210,14 @@ sf::Vector2f GameObject::getSpriteSize()
     sf::FloatRect rect = m_sprite.getLocalBounds();
     return sf::Vector2f(rect.width, rect.height);
 }
+
+void GameObject::setAngle(const float & angle)
+{
+    m_attr.angle = angle;
+    update();
+}
+
+const float &GameObject::getAngle() const
+{
+    return m_attr.angle;
+}

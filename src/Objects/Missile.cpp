@@ -5,7 +5,7 @@ Missile::Missile(Environment& env, GameObject* owner)
 ,   m_index(m_env.mslAdd(this))
 ,   m_owner(owner)
 ,   m_distance(0)
-,   m_maxDistance(owner->getAttr().damage * owner->getAttr().missileSpeed * 20)
+,   m_maxDistance(1000)
 ,   m_speed(owner->getAttr().missileSpeed)
 ,   m_damage(owner->getAttr().damage)
 ,   m_dmgType(owner->getAttr().dmgType)
@@ -73,14 +73,9 @@ void Missile::move(int dist)
     if (dist > 0)
     {
         m_distance += dist;
-        sf::Vector2f nextPos = getPosition();
-        float rad = (m_angle - 90) * static_cast<float>(PI / 180);
-        nextPos.x = nextPos.x + dist * std::cos(rad);
-        nextPos.y = nextPos.y + dist * std::sin(rad);
-        setPosition(nextPos);
+        float rad = deg2Rad(sfDeg2Deg(m_angle));
+        setPosition(polarProjection(getPosition(), dist, rad));
     }
-
-//    LOG_DEBUG(this << ", " << m_distance);
 }
 
 bool Missile::check()

@@ -6,7 +6,7 @@
 class BasicCraft : public GameObject
 {
 public:
-    BasicCraft(Environment& environment);
+    BasicCraft(Environment& environment, uint craftId = 1);
 
     void attack();
 

@@ -68,7 +68,8 @@ SOURCES       = ../src/main.cpp \
 		../src/Objects/Missile.cpp \
 		../src/Entities/Camera.cpp \
 		../src/Objects/Hero.cpp \
-		../src/Objects/BasicCraft.cpp 
+		../src/Objects/BasicCraft.cpp \
+		../src/Objects/SpecialEffect.cpp 
 OBJECTS       = main.o \
 		TextureManager.o \
 		Log.o \
@@ -87,7 +88,8 @@ OBJECTS       = main.o \
 		Missile.o \
 		Camera.o \
 		Hero.o \
-		BasicCraft.o
+		BasicCraft.o \
+		SpecialEffect.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -307,7 +309,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		src/Objects/Missile.h \
 		src/Entities/Camera.h \
 		src/Objects/Hero.h \
-		src/Objects/BasicCraft.h ../src/main.cpp \
+		src/Objects/BasicCraft.h \
+		src/Objects/SpecialEffect.h ../src/main.cpp \
 		../src/Managers/TextureManager.cpp \
 		../src/Utils/Log.cpp \
 		../src/Context.cpp \
@@ -325,7 +328,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		../src/Objects/Missile.cpp \
 		../src/Entities/Camera.cpp \
 		../src/Objects/Hero.cpp \
-		../src/Objects/BasicCraft.cpp
+		../src/Objects/BasicCraft.cpp \
+		../src/Objects/SpecialEffect.cpp
 QMAKE_TARGET  = sfml_game_engine
 DESTDIR       = 
 TARGET        = sfml_game_engine
@@ -795,11 +799,12 @@ main.o: ../src/main.cpp ../src/Engines/GameEngine.h \
 		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Utils/Misc.h \
-		../src/Environment/Environment.h \
 		../src/Environment/EnvironmentObject.h \
+		../src/Environment/Environment.h \
 		../src/Objects/GameObject.h \
 		../src/Objects/Hero.h \
-		../src/Objects/Missile.h
+		../src/Objects/Missile.h \
+		../src/Objects/BasicCraft.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 TextureManager.o: ../src/Managers/TextureManager.cpp ../src/Managers/TextureManager.h \
@@ -819,7 +824,8 @@ Context.o: ../src/Context.cpp ../src/Context.h \
 		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Config.h \
-		../src/Utils/Misc.h
+		../src/Utils/Misc.h \
+		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Context.o ../src/Context.cpp
 
 Config.o: ../src/Config.cpp ../src/Config.h
@@ -837,11 +843,12 @@ GameEngine.o: ../src/Engines/GameEngine.cpp ../src/Engines/GameEngine.h \
 		../src/Parsers/OBJTParser.h \
 		../src/Entities/Camera.h \
 		../src/Utils/Misc.h \
-		../src/Environment/Environment.h \
 		../src/Environment/EnvironmentObject.h \
+		../src/Environment/Environment.h \
 		../src/Objects/GameObject.h \
 		../src/Objects/Hero.h \
-		../src/Objects/Missile.h
+		../src/Objects/Missile.h \
+		../src/Objects/BasicCraft.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameEngine.o ../src/Engines/GameEngine.cpp
 
 Indexer.o: ../src/Utils/Indexer.cpp ../src/Utils/Indexer.h \
@@ -866,18 +873,7 @@ Environment.o: ../src/Environment/Environment.cpp ../src/Environment/Environment
 		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Environment.o ../src/Environment/Environment.cpp
 
-EnvironmentObject.o: ../src/Environment/EnvironmentObject.cpp ../src/Environment/EnvironmentObject.h \
-		../src/Context.h \
-		../src/Managers/TextureManager.h \
-		../src/Utils/Log.h \
-		../src/Managers/ObjectTypeManager.h \
-		../src/Utils/Indexer.h \
-		../src/Objects/ObjectType.h \
-		../src/Objects/Attributes.h \
-		../src/Parsers/OBJTParser.h \
-		../src/Entities/Camera.h \
-		../src/Config.h \
-		../src/Utils/Misc.h
+EnvironmentObject.o: ../src/Environment/EnvironmentObject.cpp ../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o EnvironmentObject.o ../src/Environment/EnvironmentObject.cpp
 
 FloatingText.o: ../src/Objects/FloatingText.cpp 
@@ -941,7 +937,8 @@ Missile.o: ../src/Objects/Missile.cpp ../src/Objects/Missile.h \
 Camera.o: ../src/Entities/Camera.cpp ../src/Entities/Camera.h \
 		../src/Config.h \
 		../src/Utils/Misc.h \
-		../src/Utils/Log.h
+		../src/Utils/Log.h \
+		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Camera.o ../src/Entities/Camera.cpp
 
 Hero.o: ../src/Objects/Hero.cpp ../src/Objects/Hero.h \
@@ -979,6 +976,10 @@ BasicCraft.o: ../src/Objects/BasicCraft.cpp ../src/Objects/BasicCraft.h \
 		../src/Utils/Misc.h \
 		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BasicCraft.o ../src/Objects/BasicCraft.cpp
+
+SpecialEffect.o: ../src/Objects/SpecialEffect.cpp ../src/Objects/SpecialEffect.h \
+		../src/Environment/EnvironmentObject.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SpecialEffect.o ../src/Objects/SpecialEffect.cpp
 
 ####### Install
 

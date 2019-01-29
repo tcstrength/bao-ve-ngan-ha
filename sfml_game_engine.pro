@@ -22,7 +22,8 @@ SOURCES += \
     src/Objects/Missile.cpp \
     src/Entities/Camera.cpp \
     src/Objects/Hero.cpp \
-    src/Objects/BasicCraft.cpp
+    src/Objects/BasicCraft.cpp \
+    src/Objects/SpecialEffect.cpp
 
 LIBS += -lsfml-system -lsfml-window -lsfml-graphics
 
@@ -46,4 +47,5 @@ HEADERS += \
     src/Objects/Missile.h \
     src/Entities/Camera.h \
     src/Objects/Hero.h \
-    src/Objects/BasicCraft.h
+    src/Objects/BasicCraft.h \
+    src/Objects/SpecialEffect.h

@@ -8,13 +8,9 @@ Environment::Environment(Context & context)
 
 Environment::~Environment()
 {
-    for (auto obj : m_objects)
-    {
-        if (obj.second != nullptr)
-        {
-            delete obj.second;
-        }
-    }
+    clear(m_objects);
+    clear(m_missiles);
+    clear(m_spcEfxs);
 }
 
 uint Environment::add(EnvironmentObject * obj)
@@ -31,6 +27,13 @@ uint Environment::mslAdd(EnvironmentObject * obj)
 {
     uint index = m_index.allocate();
     m_missiles[index] = obj;
+    return index;
+}
+
+uint Environment::efxAdd(EnvironmentObject * obj)
+{
+    uint index = m_index.allocate();
+    m_spcEfxs[index] = obj;
     return index;
 }
 
@@ -58,6 +61,21 @@ bool Environment::mslDel(uint id)
         delete it->second;
         m_index.deallocate(id);
         m_missiles.erase(it);
+        return true;
+    }
+
+    return false;
+}
+
+bool Environment::efxDel(uint id)
+{
+    auto it = m_spcEfxs.find(id);
+
+    if (it != m_missiles.end())
+    {
+        delete it->second;
+        m_index.deallocate(id);
+        m_spcEfxs.erase(it);
         return true;
     }
 
@@ -103,6 +121,11 @@ EnvironmentObject *Environment::last()
 
 void Environment::tick()
 {
+    for (auto it = m_spcEfxs.begin(); it != m_spcEfxs.end(); ++it)
+    {
+        it->second->tick();
+    }
+
     for (auto it = m_objects.begin(); it != m_objects.end(); ++it)
     {
         it->second->tick();
@@ -116,6 +139,11 @@ void Environment::tick()
 
 void Environment::render()
 {
+    for (auto it = m_spcEfxs.begin(); it != m_spcEfxs.end(); ++it)
+    {
+        it->second->render(m_context.window);
+    }
+
     for (auto it : m_objects)
     {
         it.second->render(m_context.window);
@@ -162,4 +190,11 @@ std::list<EnvironmentObject *> Environment::pick(sf::Vector2f center, int radius
 std::map<uint, EnvironmentObject *> Environment::getObjects() const
 {
     return m_objects;
+}
+
+void Environment::clear(std::map<uint, EnvironmentObject *> map)
+{
+    for (auto it : map)
+        delete it.second;
+
 }

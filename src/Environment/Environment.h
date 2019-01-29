@@ -15,9 +15,13 @@ public:
 
     uint mslAdd(EnvironmentObject* obj);
 
+    uint efxAdd(EnvironmentObject* obj);
+
     bool del(uint id);
 
     bool mslDel(uint id);
+
+    bool efxDel(uint id);
 
     EnvironmentObject* get(uint id);
 
@@ -38,10 +42,13 @@ public:
     std::map<uint, EnvironmentObject *> getObjects() const;
 
 private:
+    void clear(std::map<uint, EnvironmentObject*>);
+
     Context& m_context;
     Indexer m_index;
     std::map<uint,EnvironmentObject*> m_objects;
     std::map<uint,EnvironmentObject*> m_missiles;
+    std::map<uint,EnvironmentObject*> m_spcEfxs;
     EnvironmentObject* m_lastObject;
 };
 

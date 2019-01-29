@@ -1,6 +1,6 @@
 #include "BasicCraft.h"
-BasicCraft::BasicCraft(Environment & environment)
-:   GameObject (environment, ObjectTypeManager::instance()->get(1))
+BasicCraft::BasicCraft(Environment & environment, uint craftId)
+:   GameObject (environment, ObjectTypeManager::instance()->get(craftId))
 {
 }
 
@@ -16,7 +16,6 @@ void BasicCraft::attack()
 
 void BasicCraft::tick()
 {
-    attack();
     AIRun();
     GameObject::tick();
 }
@@ -35,12 +34,27 @@ void BasicCraft::AIRun()
         }
     }
 
-    if (m_target != nullptr)
+    if (m_target != nullptr && m_target->getAttr().hitpoints > 0)
     {
         sf::Vector2f pos = m_target->getPosition();
         sf::Vector2f myPos = getPosition();
-        float rad = static_cast<float>(atan2(pos.y - myPos.y, pos.x - myPos.x));
-        m_attr.angle = 90 + (rad / (PI / 180));
-        update();
+        float oldRad = deg2Rad(sfDeg2Deg(getAngle()));
+        float rad = radBetween2Vec(myPos, pos);
+        setAngle(deg2sfDeg(rad2Deg(rad)));
+
+        if (std::abs(rad - oldRad) > PI / 8)
+        {
+            m_attackClock.restart();
+        }
+        attack();
     }
 }
+
+
+
+
+
+
+
+
+

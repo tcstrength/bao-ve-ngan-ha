@@ -1,17 +1,17 @@
-[1]
+[2]
 team         = ENEMY
 texture      = greencraft.png
 color        = 0, 255, 255
-scale        = 4.0
+scale        = 10.0
 angle        = 180.0
 speed        = 3
-damage       = 5
+damage       = 25
 damageType   = NORMAL
 autoAttack   = 1
-attackSpeed  = 1.5
-hitpoints    = 500
+attackSpeed  = 0.5
+hitpoints    = 5000
 decay        = 1
-missileSpeed = 15.0
+missileSpeed = 25.0
 missileCount = 1
 missile      = greencraft_missile.png
 showHP       = 1

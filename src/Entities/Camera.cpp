@@ -3,8 +3,22 @@
 Camera::Camera(const Config& config)
 :   m_config(config)
 ,   m_position(config.width / 2, config.height / 2)
+,   m_bindObj(nullptr)
 {
 
+}
+
+void Camera::tick()
+{
+    if (m_bindObj != nullptr)
+    {
+        setPosition(m_bindObj->getPosition());
+    }
+}
+
+void Camera::bind(EnvironmentObject * obj)
+{
+    m_bindObj = obj;
 }
 
 void Camera::setPosition(sf::Vector2f position)

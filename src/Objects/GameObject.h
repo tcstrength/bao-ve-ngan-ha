@@ -28,6 +28,7 @@ public:
             void setAttr(const Attributes& attr);
 
 protected:
+
             bool canAttack();
 
             void setColor(const sf::Color& color);
@@ -37,6 +38,10 @@ protected:
             sf::Vector2f getSize();
 
             sf::Vector2f getSpriteSize();
+
+            void setAngle(const float& angle);
+
+            const float& getAngle() const;
 
             void correctAttr();
 

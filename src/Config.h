@@ -13,6 +13,7 @@ struct Config
     uint frameRate = 120;
     bool fullscreen = false;
     bool vsync = true;
+    bool galaxyEffect = true;
 };
 
 #endif // CONFIG_H

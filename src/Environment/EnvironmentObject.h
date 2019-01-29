@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENTOBJECT_H
 #define ENVIRONMENTOBJECT_H
 
-#include "../Context.h"
+#include <SFML/Graphics.hpp>
 
 class EnvironmentObject
 {
@@ -11,6 +11,8 @@ public:
     friend class GameObject;
 
     friend class Missile;
+
+    friend class SpecialEffect;
 
     EnvironmentObject();
 

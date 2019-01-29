@@ -4,11 +4,12 @@ Hero::Hero(Environment& env)
 :   GameObject(env, ObjectTypeManager::instance()->get(0))
 {
     tick();
+    m_env.getCamera().bind(this);
 }
 
 void Hero::tick()
 {
-    auto mp = static_cast<sf::Vector2<double>>(sf::Mouse::getPosition(m_env.getContext().window));
+    auto mp = static_cast<sf::Vector2f>(sf::Mouse::getPosition(m_env.getContext().window));
     Context& ctx = m_env.getContext();
 
     if (mp.x < 0 || mp.y < 0 || mp.x > ctx.config.width || mp.y > ctx.config.height)
@@ -16,35 +17,19 @@ void Hero::tick()
         return;
     }
 
-    auto op = sf::Vector2<double>(ctx.config.width / 2,
-                                  ctx.config.height / 2);
-    float rad = static_cast<float>(atan2(mp.y - op.y, mp.x - op.x));
-    auto attr = getAttr();
+    auto op = sf::Vector2f(ctx.config.width / 2,
+                           ctx.config.height / 2);
 
-    attr.angle = (rad / (PI / 180)) + 90;
-    setAttr(attr);
-    setPosition(m_env.getContext().camera.getPosition());
+    float rad = radBetween2Vec(op, mp);
+    setAngle(deg2sfDeg(rad2Deg(rad)));
 
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
     {
         attack();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-    {
-        m_env.getContext().camera.move(m_attr.speed, -PI / 2);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-    {
-        m_env.getContext().camera.move(m_attr.speed, PI / 2);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-    {
-        m_env.getContext().camera.move(m_attr.speed, PI);
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        m_env.getContext().camera.move(m_attr.speed, 0);
-    }
+
+    handleKeys();
+    GameObject::tick();
 }
 
 void Hero::attack()
@@ -56,3 +41,35 @@ void Hero::attack()
         GameObject::attack();
     }
 }
+
+void Hero::handleKeys()
+{
+    float angle = getAngle();
+    float speed = 0;
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        speed = m_attr.speed;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+    {
+        speed *= 2;
+    }
+
+    float rad = deg2Rad(sfDeg2Deg(angle));
+    sf::Vector2f newPos = polarProjection(getPosition(), speed, rad);
+    m_env.getCamera().setPosition(newPos);
+    setPosition(newPos);
+}
+
+
+
+
+
+
+
+
+
+
+

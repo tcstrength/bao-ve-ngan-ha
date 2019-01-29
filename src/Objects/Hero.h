@@ -15,6 +15,8 @@ public:
     void attack();
 
 private:
+
+    void handleKeys();
 };
 
 #endif // Hero_H

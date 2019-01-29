@@ -9,6 +9,7 @@
 #include "../Objects/GameObject.h"
 #include "../Objects/Hero.h"
 #include "../Objects/BasicCraft.h"
+#include "../Objects/SpecialEffect.h"
 
 class GameEngine
 {

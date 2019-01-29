@@ -13,6 +13,8 @@ public:
 
     void deallocate(uint index);
 
+    bool pop(uint& index);
+
     uint size();
 
 private:
