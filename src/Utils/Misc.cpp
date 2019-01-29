@@ -48,3 +48,10 @@ int randBetween(int min, int max)
 {
     return rand() % (max - min + 1) + min;
 }
+
+float distanceBetween(const sf::Vector2f & p1, const sf::Vector2f & p2)
+{
+    float dx = p2.x - p1.x;
+    float dy = p2.y - p1.y;
+    return std::sqrt(dx*dx + dy*dy);
+}

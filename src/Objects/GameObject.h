@@ -21,7 +21,7 @@ public:
 
             void del();
 
-            void beHit(DamageType type, int dmg);
+            void beHit(GameObject* attacker, DamageType type, int dmg);
 
     const   Attributes& getAttr() const;
 

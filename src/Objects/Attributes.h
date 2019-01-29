@@ -36,6 +36,7 @@ struct Attributes
     bool         showHP = true;
     float        decay = 0.f;
     bool         autoAttack = false;
+    int          exp = 0;
 };
 
 #endif // ATTRIBUTES_H

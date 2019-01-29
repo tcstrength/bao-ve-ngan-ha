@@ -23,7 +23,8 @@ SOURCES += \
     src/Entities/Camera.cpp \
     src/Objects/Hero.cpp \
     src/Objects/BasicCraft.cpp \
-    src/Objects/SpecialEffect.cpp
+    src/Objects/SpecialEffect.cpp \
+    src/Objects/Galaxy.cpp
 
 LIBS += -lsfml-system -lsfml-window -lsfml-graphics
 
@@ -48,4 +49,5 @@ HEADERS += \
     src/Entities/Camera.h \
     src/Objects/Hero.h \
     src/Objects/BasicCraft.h \
-    src/Objects/SpecialEffect.h
+    src/Objects/SpecialEffect.h \
+    src/Objects/Galaxy.h

@@ -2,17 +2,12 @@
 #define ENVIRONMENTOBJECT_H
 
 #include <SFML/Graphics.hpp>
+#include "../Objects/Attributes.h"
 
 class EnvironmentObject
 {
 public:
     friend class Environment;
-
-    friend class GameObject;
-
-    friend class Missile;
-
-    friend class SpecialEffect;
 
     EnvironmentObject();
 
@@ -54,7 +49,7 @@ protected:
     ///
     sf::Vector2f getCenteredPosition();
 
-private:
+protected:
     float        m_maxDecayTime;
     float        m_decayTime;
     sf::Vector2f m_position;

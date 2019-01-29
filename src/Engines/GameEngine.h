@@ -10,6 +10,7 @@
 #include "../Objects/Hero.h"
 #include "../Objects/BasicCraft.h"
 #include "../Objects/SpecialEffect.h"
+#include "../Objects/Galaxy.h"
 
 class GameEngine
 {

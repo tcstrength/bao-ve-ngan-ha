@@ -86,7 +86,7 @@ bool Missile::check()
             && obj != m_owner
             && obj->getAttr().hitpoints > 0)
     {
-        obj->beHit(m_dmgType, m_damage);
+        obj->beHit(m_owner, m_dmgType, m_damage);
         return true;
     }
 

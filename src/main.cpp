@@ -17,6 +17,7 @@
 
 int main()
 {
+    srand(time(nullptr));
     Config config;
     GameEngine game(config);
     game.init();

@@ -125,7 +125,7 @@ void GameObject::del()
     m_env.del(m_index);
 }
 
-void GameObject::beHit(DamageType type, int dmg)
+void GameObject::beHit(GameObject * attacker, DamageType type, int dmg)
 {
     switch(type)
     {
@@ -141,13 +141,22 @@ void GameObject::beHit(DamageType type, int dmg)
             break;
     }
 
-    if (m_attr.hitpoints - dmg >= 0)
+    if (m_attr.hitpoints - dmg > 0)
     {
         m_attr.hitpoints -= dmg;
     }
     else
     {
         m_attr.hitpoints = 0;
+        if (attacker != nullptr)
+        {
+            Attributes attr = attacker->getAttr();
+            attr.damage += 5;
+            attr.attackSpeed -= 0.01;
+            attr.speed += 1;
+            attr.missileSpeed += 1;
+            attacker->setAttr(attr);
+        }
     }
 
     update();
@@ -169,6 +178,9 @@ void GameObject::correctAttr()
 
     if (m_attr.missileSpeed < 0)
         m_attr.missileSpeed = 0;
+
+    if (m_attr.speed > 50)
+        m_attr.speed = 50;
 }
 
 const Attributes &GameObject::getAttr() const

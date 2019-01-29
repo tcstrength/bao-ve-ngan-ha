@@ -25,4 +25,6 @@ float deg2sfDeg(float angle);
 sf::Vector2f polarProjection(const sf::Vector2f& pos, const float& dist,const float& rad);
 
 float radBetween2Vec(const sf::Vector2f& src, const sf::Vector2f& dst);
+
+float distanceBetween(const sf::Vector2f& p1, const sf::Vector2f& p2);
 #endif // MISC_H

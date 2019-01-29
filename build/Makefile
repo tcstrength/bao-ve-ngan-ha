@@ -69,7 +69,8 @@ SOURCES       = ../src/main.cpp \
 		../src/Entities/Camera.cpp \
 		../src/Objects/Hero.cpp \
 		../src/Objects/BasicCraft.cpp \
-		../src/Objects/SpecialEffect.cpp 
+		../src/Objects/SpecialEffect.cpp \
+		../src/Objects/Galaxy.cpp 
 OBJECTS       = main.o \
 		TextureManager.o \
 		Log.o \
@@ -89,7 +90,8 @@ OBJECTS       = main.o \
 		Camera.o \
 		Hero.o \
 		BasicCraft.o \
-		SpecialEffect.o
+		SpecialEffect.o \
+		Galaxy.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -310,7 +312,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		src/Entities/Camera.h \
 		src/Objects/Hero.h \
 		src/Objects/BasicCraft.h \
-		src/Objects/SpecialEffect.h ../src/main.cpp \
+		src/Objects/SpecialEffect.h \
+		src/Objects/Galaxy.h ../src/main.cpp \
 		../src/Managers/TextureManager.cpp \
 		../src/Utils/Log.cpp \
 		../src/Context.cpp \
@@ -329,7 +332,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		../src/Entities/Camera.cpp \
 		../src/Objects/Hero.cpp \
 		../src/Objects/BasicCraft.cpp \
-		../src/Objects/SpecialEffect.cpp
+		../src/Objects/SpecialEffect.cpp \
+		../src/Objects/Galaxy.cpp
 QMAKE_TARGET  = sfml_game_engine
 DESTDIR       = 
 TARGET        = sfml_game_engine
@@ -804,7 +808,9 @@ main.o: ../src/main.cpp ../src/Engines/GameEngine.h \
 		../src/Objects/GameObject.h \
 		../src/Objects/Hero.h \
 		../src/Objects/Missile.h \
-		../src/Objects/BasicCraft.h
+		../src/Objects/BasicCraft.h \
+		../src/Objects/SpecialEffect.h \
+		../src/Objects/Galaxy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../src/main.cpp
 
 TextureManager.o: ../src/Managers/TextureManager.cpp ../src/Managers/TextureManager.h \
@@ -848,7 +854,9 @@ GameEngine.o: ../src/Engines/GameEngine.cpp ../src/Engines/GameEngine.h \
 		../src/Objects/GameObject.h \
 		../src/Objects/Hero.h \
 		../src/Objects/Missile.h \
-		../src/Objects/BasicCraft.h
+		../src/Objects/BasicCraft.h \
+		../src/Objects/SpecialEffect.h \
+		../src/Objects/Galaxy.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o GameEngine.o ../src/Engines/GameEngine.cpp
 
 Indexer.o: ../src/Utils/Indexer.cpp ../src/Utils/Indexer.h \
@@ -978,8 +986,39 @@ BasicCraft.o: ../src/Objects/BasicCraft.cpp ../src/Objects/BasicCraft.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BasicCraft.o ../src/Objects/BasicCraft.cpp
 
 SpecialEffect.o: ../src/Objects/SpecialEffect.cpp ../src/Objects/SpecialEffect.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Utils/Misc.h \
 		../src/Environment/EnvironmentObject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SpecialEffect.o ../src/Objects/SpecialEffect.cpp
+
+Galaxy.o: ../src/Objects/Galaxy.cpp ../src/Objects/Galaxy.h \
+		../src/Objects/GameObject.h \
+		../src/Environment/Environment.h \
+		../src/Context.h \
+		../src/Managers/TextureManager.h \
+		../src/Utils/Log.h \
+		../src/Managers/ObjectTypeManager.h \
+		../src/Utils/Indexer.h \
+		../src/Objects/ObjectType.h \
+		../src/Objects/Attributes.h \
+		../src/Parsers/OBJTParser.h \
+		../src/Entities/Camera.h \
+		../src/Config.h \
+		../src/Utils/Misc.h \
+		../src/Environment/EnvironmentObject.h \
+		../src/Objects/BasicCraft.h \
+		../src/Objects/Missile.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Galaxy.o ../src/Objects/Galaxy.cpp
 
 ####### Install
 
