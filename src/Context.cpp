@@ -1,26 +1,19 @@
 #include "Context.h"
 
-Context::Context(const Config& cfg)
-:   config(cfg)
-,   camera(cfg)
+Context::Context(Config& config_)
+:   config(config_)
+,   window(config_)
+,   transformer(config_)
 {
-    sf::ContextSettings settings;
-    settings.antialiasingLevel = 4;
+    shader.load();
+}
 
-    if (config.fullscreen)
-    {
-        window.create(sf::VideoMode::getDesktopMode(), config.title, sf::Style::Default, settings);
-    }
-    else
-    {
-        window.create(sf::VideoMode(config.width, config.height), config.title, sf::Style::Default, settings);
-    }
+Context::~Context()
+{
+    clear();
+}
 
-    if (config.frameRate != 0)
-    {
-        window.setFramerateLimit(config.frameRate);
-    }
-
-    window.setVerticalSyncEnabled(config.vsync);
-    font.loadFromFile("fonts/SFPro.otf");
+void Context::clear()
+{
+    window.close();
 }

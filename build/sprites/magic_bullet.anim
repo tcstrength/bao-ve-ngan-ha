@@ -1,0 +1,14 @@
+# <width of textures> / <cols>
+# <height of texture> / <rows>
+# 0 is global variable
+
+[0]
+texture   = magic_bullet.png
+animation = 1
+rows      = 1
+cols      = 1
+
+[1]
+name      = start
+frames    = 1
+delay     = 0.0

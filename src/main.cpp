@@ -1,26 +1,34 @@
-#include "Engines/GameEngine.h"
-#include "Parsers/OBJTParser.h"
+#include "Config.h"
+#include "Context.h"
+#include "Renderers/Window.h"
+#include "Renderers/Sprite.h"
+#include "Events/Event.h"
 
-//void test()
-//{
-//    ObjectTypeManager* mng = ObjectTypeManager::instance();
-//    ObjectType& hero = mng->make(0);
-//    hero.attr.scale = 4.f;
-//    hero.texture = TextureManager::instance()->get("hero.png");
-
-//    ObjectType& aaa = mng->make(1);
-//    aaa.attr.scale = 5.f;
-//    aaa.texture = TextureManager::instance()->get("wtf.png");
-
-//    mng->show();
-//}
+class Test : public EventSignal
+{
+public:
+    void callback(EventType type, const EventData& data)
+    {
+        LOG_DEBUG(type << " : " << data.key);
+    }
+};
 
 int main()
 {
-    srand(time(nullptr));
     Config config;
-    GameEngine game(config);
-    game.init();
-    game.run();
+    Context context(config);
+    Event::init(context.window.getWindow());
+    Test test;
+
+    Event::instance().reg(EventType::KEY_PRESS, &test);
+    Event::instance().reg(EventType::KEY_RELEASE, &test);
+
+    while (context.window.isOpen())
+    {
+        context.window.clear();
+
+        context.window.display();
+    }
+
     return 0;
 }

@@ -4,27 +4,65 @@
 #include <iostream>
 #include <assert.h>
 #include <cmath>
-#include <SFML/Graphics.hpp>
+#include <vector>
+#include <map>
+#include <list>
+#include <glm/glm.hpp>
 
-const float PI = static_cast<float>(std::acos(-1));
+namespace Misc {
 
-const float RAD_UNIT = PI/190;
+    const float PI = static_cast<float>(std::acos(-1));
 
-int randBetween(int min, int max);
+    const float RAD_UNIT = PI/180;
 
-float randf();
+    ///////////////////////////////////
+    /// \brief randlf random between -1..1
+    /// \return double
+    ///
+    double randlf();
 
-float deg2Rad(float deg);
+    ///////////////////////////////////
+    /// \brief randf random between -1..1
+    /// \return float
+    ///
+    float randf();
 
-float rad2Deg(float rad);
+    //////////////////////////////////
+    /// \brief rand2m random integer between min..max
+    ///
+    int rand2m(int min, int max);
 
-float sfDeg2Deg(float sfAngle);
+    //////////////////////////////////
+    /// \brief deg2Rad convert degree to radian
+    /// \param deg
+    /// \return
+    ///
+    float deg2Rad(float deg);
 
-float deg2sfDeg(float angle);
+    //////////////////////////////////
+    /// \brief rad2Deg convert radian to degree
+    /// \param rad
+    /// \return
+    ///
+    float rad2Deg(float rad);
 
-sf::Vector2f polarProjection(const sf::Vector2f& pos, const float& dist,const float& rad);
+    //////////////////////////////////
+    /// \brief distance2Vec compute distance between 2 vectors
+    /// \param p1
+    /// \param p2
+    /// \return
+    ///
+    float distance2Vec(const glm::vec2& p1, const glm::vec2& p2);
 
-float radBetween2Vec(const sf::Vector2f& src, const sf::Vector2f& dst);
+    //////////////////////////////////
+    /// \brief polarProjection everyone know this
+    /// \param p1
+    /// \param offset
+    /// \param radian
+    /// \return
+    ///
+    glm::vec2& polarProjection(const glm::vec2& p1, const float& offset, const float& radian);
 
-float distanceBetween(const sf::Vector2f& p1, const sf::Vector2f& p2);
+}
+
 #endif // MISC_H

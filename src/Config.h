@@ -1,19 +1,15 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <iostream>
-#include <list>
-#include <queue>
-
 struct Config
 {
     const char* title = "Bao Ve Ngan Ha";
-    uint width = 1600;
-    uint height = 900;
-    uint frameRate = 120;
+    const char* vsPath = "shaders/shader.vs";
+    const char* fsPath = "shaders/shader.fs";
+    int width = 1080;
+    int height = 720;
     bool fullscreen = false;
-    bool vsync = true;
-    bool galaxyEffect = true;
+    bool vsync = false;
 };
 
 #endif // CONFIG_H

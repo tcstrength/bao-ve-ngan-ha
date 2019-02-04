@@ -1,2 +1,2 @@
-*.o
-build/log.txt
+/*.o
+log.txt

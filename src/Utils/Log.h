@@ -20,6 +20,8 @@ do { \
 do { \
     Log::instance()->stream() << str; \
     Log::instance()->error(); \
+    std::cout << "Exit!" << std::endl; \
+    exit(1); \
 } while(0)
 
 #else
